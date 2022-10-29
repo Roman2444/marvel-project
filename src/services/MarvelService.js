@@ -22,6 +22,13 @@ class MarvelService {
 
     getCharacter = async (id) => {
         const res = await this.getResource(`${this._apiBase}characters/${id}?${this._apiKey}`);
+            if (!res.data.results[0].description) {
+                res.data.results[0].description = "Sorry, no description found for this character"
+            }
+            else if (res.data.results[0].description.length > 200) {
+                res.data.results[0].description = res.data.results[0].description.slice(0, 200) + '...'
+            }
+     
         return this._transformCharacter(res.data.results[0]);
     }
     
