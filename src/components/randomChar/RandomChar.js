@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import MarvelService from '../../services/MarvelService'
+import MarvelService from '../../services/MarvelService';
+import Spinner from '../spinner/spinner'
 
 import './randomChar.scss';
 
@@ -12,7 +13,8 @@ class RandomChar extends Component {
     }
 
     state = {
-        chair: {}
+        chair: {},
+        loading: true
     }
 
     marvelService = new MarvelService();
@@ -30,26 +32,15 @@ class RandomChar extends Component {
 
 
     render() {
-        const {name, description, thumbnail, homepage, wiki} = this.state.chair;
+        const {chair: {name, description, thumbnail, homepage, wiki}, loading} = this.state;
+
+        if (loading) {
+            return <Spinner/>
+        }
+       
         return (
             <div className="randomchar">
-                <div className="randomchar__block">
-                    <img src={thumbnail} alt="Random character" className="randomchar__img"/>
-                    <div className="randomchar__info">
-                        <p className="randomchar__name">{name}</p>
-                        <p className="randomchar__descr">
-                            {description}
-                        </p>
-                        <div className="randomchar__btns">
-                            <a href={homepage} className="button button__main">
-                                <div className="inner">homepage</div>
-                            </a>
-                            <a href={wiki} className="button button__secondary">
-                                <div className="inner">Wiki</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
                 <div className="randomchar__static">
                     <p className="randomchar__title">
                         Random character for today!<br/>
@@ -67,6 +58,31 @@ class RandomChar extends Component {
         )
 
     }
+}
+
+const View = ({chair}) => {
+    const {name, description, thumbnail, homepage, wiki} = chair;
+    return (
+        <div className="randomchar__block">
+            <img src={thumbnail} alt="Random character" className="randomchar__img"/>
+            <div className="randomchar__info">
+                <p className="randomchar__name">{name}</p>
+                <p className="randomchar__descr">
+                    {description}
+                </p>
+                <div className="randomchar__btns">
+                
+                    <a href={homepage} className="button button__main">
+                        <div className="inner">homepage</div>
+                    </a>
+                    <a href={wiki} className="button button__secondary">
+                        <div className="inner">Wiki {Spinner}</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    )
 }
 
 
