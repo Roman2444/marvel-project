@@ -38,7 +38,7 @@ class RandomChar extends Component {
     updateChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         this.marvelService
-            .getCharacter(3)
+            .getCharacter(id)
             .then(this.onCharLoaded)
             .catch(this.onError);
     }
