@@ -1,17 +1,12 @@
 import { Component } from 'react';
-import MarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
-import ErrorMessage from '../errorMessage/ErrorMessege';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import MarvelService from '../../services/MarvelService';
 
 import './randomChar.scss';
-
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
-    constructor(props) { 
-        super(props)
-        this.updateChar()
-    }
 
     state = {
         char: {},
@@ -20,6 +15,10 @@ class RandomChar extends Component {
     }
 
     marvelService = new MarvelService();
+
+    componentDidMount() {
+        this.updateChar();
+    }
 
     onCharLoaded = (char) => {
         this.setState({
@@ -42,7 +41,6 @@ class RandomChar extends Component {
             .then(this.onCharLoaded)
             .catch(this.onError);
     }
-
 
     render() {
         const {char, error, loading} = this.state;
@@ -88,7 +86,7 @@ const View = ({char}) => {
                         <div className="inner">homepage</div>
                     </a>
                     <a href={wiki} className="button button__secondary">
-                        <div className="inner">Wiki {Spinner}</div>
+                        <div className="inner">Wiki</div>
                     </a>
                 </div>
             </div>
@@ -96,7 +94,5 @@ const View = ({char}) => {
         
     )
 }
-
-
 
 export default RandomChar;
