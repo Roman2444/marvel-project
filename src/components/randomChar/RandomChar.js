@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import MarvelService from '../../services/MarvelService';
-import Spinner from '../spinner/spinner'
+import Spinner from '../spinner/Spinner'
 
 import './randomChar.scss';
 
@@ -13,26 +13,26 @@ class RandomChar extends Component {
     }
 
     state = {
-        chair: {},
+        char: {},
         loading: true
     }
 
     marvelService = new MarvelService();
 
-    onChairLoaded = (chair) => {
-        this.setState({chair})
+    onCharLoaded = (char) => {
+        this.setState({char})
     }
 
     updateChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         this.marvelService
             .getCharacter(id)
-            .then(this.onChairLoaded)
+            .then(this.onCharLoaded)
     }
 
 
     render() {
-        const {chair: {name, description, thumbnail, homepage, wiki}, loading} = this.state;
+        const {char, loading} = this.state;
 
         if (loading) {
             return <Spinner/>
@@ -60,8 +60,8 @@ class RandomChar extends Component {
     }
 }
 
-const View = ({chair}) => {
-    const {name, description, thumbnail, homepage, wiki} = chair;
+const View = ({char}) => {
+    const {name, description, thumbnail, homepage, wiki} = char;
     return (
         <div className="randomchar__block">
             <img src={thumbnail} alt="Random character" className="randomchar__img"/>
