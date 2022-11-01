@@ -19,10 +19,6 @@ class CharList extends Component {
         console.log('DidMount**List')
 
         this.updateChar()
-        // this.marvelService
-        //     .getAllCharacters()
-        //     .then(this.onCharLoaded)
-        //     .catch(this.onError);
     }
 
     onCharLoaded = (chars) => {
@@ -51,16 +47,23 @@ class CharList extends Component {
     }
 
     renderItems(chars) {
+
+
+
         const elements = chars.map((item) => {
+
+ 
+
             // const {name,thumbnail} = item;
             return (
-                <li className="char__item">
+                <li className="char__item" key={item.id}>
                     <img src={item.thumbnail} alt="thumbnail"/>
                     <div className="char__name">{item.name}</div>
                 </li>
 
             )
         });
+
         return (
             <ul className="char__grid">
             {elements}
@@ -78,9 +81,9 @@ class CharList extends Component {
         // const content = (errorMessage || spinner || <View char={char}/>);
         
         // const {name, description, thumbnail, homepage, wiki} = chars;
-    
-            const name33 = chars[1]
-            console.log('name33',  name33)
+
+        let name33 = chars[1];
+        console.log('name33',  name33);
     
         return (
             
