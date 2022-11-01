@@ -48,13 +48,8 @@ class CharList extends Component {
 
     renderItems(chars) {
 
-
-
         const elements = chars.map((item) => {
-
  
-
-            // const {name,thumbnail} = item;
             return (
                 <li className="char__item" key={item.id}>
                     <img src={item.thumbnail} alt="thumbnail"/>
@@ -69,7 +64,6 @@ class CharList extends Component {
             {elements}
             </ul>
         )
-
     }
 
 
@@ -78,9 +72,8 @@ class CharList extends Component {
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const list = this.renderItems(chars)
-        // const content = (errorMessage || spinner || <View char={char}/>);
+        const content = (errorMessage || spinner || list);
         
-        // const {name, description, thumbnail, homepage, wiki} = chars;
 
         let name33 = chars[1];
         console.log('name33',  name33);
@@ -88,7 +81,7 @@ class CharList extends Component {
         return (
             
             <div className="char__list">
-                    {list}
+                    {content}
                 <button className="button button__main button__long">
                     <div className="inner">load more</div>
                 </button>
@@ -99,13 +92,5 @@ class CharList extends Component {
 
 }
 
-// const CharListItem = ({name,thumbnail}) => {
-//     return (
-//         <li className="char__item">
-//             <img src={thumbnail} alt="thumbnail"/>
-//             <div className="char__name">{name}</div>
-//         </li>
-//     )
-// }
 
 export default CharList;
