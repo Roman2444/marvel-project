@@ -17,12 +17,7 @@ class RandomChar extends Component {
     marvelService = new MarvelService();
 
     componentDidMount() {
-        console.log('DidMount')
         this.updateChar();
-    }
-
-    componentDidUpdate(e) {
-        console.log('Update')
     }
     
     onCharLoaded = (char) => {
@@ -56,11 +51,12 @@ class RandomChar extends Component {
     }
 
     render() {
-        console.log('render')
+        
         const {char, error, loading} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = (errorMessage || spinner || <View char={char}/>);
+
 
         return (
             <div className="randomchar">
@@ -87,7 +83,6 @@ class RandomChar extends Component {
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki} = char;
     const imgStyle = (thumbnail.includes('image_not_available')) ? {objectFit: "fill"} : null;
-
     return (
         <div className="randomchar__block">
             <img src={thumbnail} alt="Random character" style={imgStyle} className="randomchar__img"/>
