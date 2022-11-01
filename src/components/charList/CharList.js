@@ -49,10 +49,12 @@ class CharList extends Component {
     renderItems(chars) {
 
         const elements = chars.map((item) => {
+
+            const imgStyle = (item.thumbnail.includes('image_not_available')) ? {objectFit: "fill"} : null;
  
             return (
                 <li className="char__item" key={item.id}>
-                    <img src={item.thumbnail} alt="thumbnail"/>
+                    <img src={item.thumbnail} alt="thumbnail" style={imgStyle}/>
                     <div className="char__name">{item.name}</div>
                 </li>
 
