@@ -53,7 +53,10 @@ class CharList extends Component {
             const imgStyle = (item.thumbnail.includes('image_not_available')) ? {objectFit: "fill"} : null;
  
             return (
-                <li className="char__item" key={item.id}>
+                <li 
+                className="char__item" 
+                key={item.id}
+                onClick={()=>this.props.onCharSelected(item.id)}>
                     <img src={item.thumbnail} alt="thumbnail" style={imgStyle}/>
                     <div className="char__name">{item.name}</div>
                 </li>
@@ -71,9 +74,10 @@ class CharList extends Component {
 
     render() {
         const {chars, error, loading} = this.state;
+        const list = this.renderItems(chars)
+
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
-        const list = this.renderItems(chars)
         const content = (errorMessage || spinner || list);
         
 
