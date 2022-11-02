@@ -71,7 +71,6 @@ class CharList extends Component {
         )
     }
 
-
     render() {
         const {chars, error, loading} = this.state;
         const list = this.renderItems(chars)
@@ -79,10 +78,6 @@ class CharList extends Component {
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = (errorMessage || spinner || list);
-        
-
-        let name33 = chars[1];
-        console.log('name33',  name33);
     
         return (
             

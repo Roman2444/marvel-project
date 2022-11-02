@@ -1,4 +1,4 @@
-import { Component } from 'react/cjs/react.development';
+import { Component } from 'react';
 
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -21,6 +21,13 @@ class CharInfo extends Component {
         this.updateChar();
     }
 
+    componentDidUpdate(prevProps){
+        if (this.props.charId !== prevProps.charId) {
+            this.updateChar();
+        }
+    }
+
+    
     onCharLoaded = (char) => {
         this.setState({
             char, 
