@@ -16,9 +16,8 @@ class CharList extends Component {
     marvelService = new MarvelService();
 
     componentDidMount() {
-        console.log('DidMount**List')
-
         this.updateChar()
+    
     }
 
     onCharLoaded = (chars) => {
@@ -26,7 +25,6 @@ class CharList extends Component {
             chars, 
             loading: false
         })
-        console.log('onCharLoaded--')
     }
 
 
@@ -38,16 +36,15 @@ class CharList extends Component {
     }
 
     updateChar = () => {
-        console.log('updateChar')
-        
         this.marvelService
             .getAllCharacters()
             .then(this.onCharLoaded)
             .catch(this.onError);
+
     }
 
     renderItems(chars) {
-
+       
         const elements = chars.map((item) => {
 
             const imgStyle = (item.thumbnail.includes('image_not_available')) ? {objectFit: "fill"} : null;
@@ -74,6 +71,8 @@ class CharList extends Component {
     render() {
         const {chars, error, loading} = this.state;
         const list = this.renderItems(chars)
+
+        
 
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
