@@ -17,7 +17,6 @@ class CharList extends Component {
 
     componentDidMount() {
         this.updateChar()
-    
     }
 
     onCharLoaded = (chars) => {
@@ -40,7 +39,6 @@ class CharList extends Component {
             .getAllCharacters()
             .then(this.onCharLoaded)
             .catch(this.onError);
-
     }
 
     renderItems(chars) {
@@ -57,7 +55,6 @@ class CharList extends Component {
                     <img src={item.thumbnail} alt="thumbnail" style={imgStyle}/>
                     <div className="char__name">{item.name}</div>
                 </li>
-
             )
         });
 
@@ -70,10 +67,8 @@ class CharList extends Component {
 
     render() {
         const {chars, error, loading} = this.state;
-        const list = this.renderItems(chars)
-
+        const list = this.renderItems(chars);
         
-
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = (errorMessage || spinner || list);
@@ -87,10 +82,7 @@ class CharList extends Component {
                 </button>
             </div>
         )
-
     }
-
 }
-
 
 export default CharList;
