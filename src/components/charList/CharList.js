@@ -10,35 +10,44 @@ class CharList extends Component {
     state = {
         chars: [],
         loading: true,
-        error: false
+        error: false,
+        newItemLoading: false,
+        offset: 210
     }
 
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.updateChar()
+        this.onRequest();
     }
 
-    onCharLoaded = (chars) => {
+    onRequest = (offset) => {
+        this.onCharListLoading();
+        this.marvelService.getAllCharacters(offset)
+            .then(this.onCharListLoaded)
+            .catch(this.onError);
+    }
+
+    onCharListLoading = () => {
         this.setState({
-            chars, 
-            loading: false
+            newItemLoading: true
         })
     }
 
+    onCharListLoaded = (newCharList) => {
+        this.setState(({offset, chars}) => ({
+            chars: [...chars, ...newCharList],
+            loading: false,
+            newItemLoading: false,
+            offset: offset + 9
+        }))
+    }
 
     onError = () => {
         this.setState({
             loading: false,
             error: true
         })
-    }
-
-    updateChar = () => {
-        this.marvelService
-            .getAllCharacters()
-            .then(this.onCharLoaded)
-            .catch(this.onError);
     }
 
     renderItems(chars) {
@@ -66,7 +75,7 @@ class CharList extends Component {
     }
 
     render() {
-        const {chars, error, loading} = this.state;
+        const {chars, error, loading, newItemLoading, offset} = this.state;
         const list = this.renderItems(chars);
         
         const errorMessage = error ? <ErrorMessage/> : null;
@@ -77,7 +86,10 @@ class CharList extends Component {
             
             <div className="char__list">
                     {content}
-                <button className="button button__main button__long">
+                <button  
+                className="button button__main button__long"
+                disabled={newItemLoading}
+                onClick={()=> this.onRequest(offset)}>
                     <div className="inner">load more</div>
                 </button>
             </div>
