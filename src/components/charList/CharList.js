@@ -88,6 +88,15 @@ class CharList extends Component {
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = (errorMessage || spinner || list);
+
+        // место для ошибки:
+        // ======================================================
+
+        // с этой ошибкой код ломается, нет крестика, чтобы закрыть, 
+        // но если добавить this.foo.fff = 0, тогда все работает
+
+        foo.fff = 0
+
     
         return (
             
