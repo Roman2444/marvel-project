@@ -24,14 +24,23 @@ class App extends Component {
         return (
             <div className="app">
                 <AppHeader/>
+                <MyElem> 
+                    <h2> MyElem </h2>  
+                    <h2> WORk!!!!</h2> 
+                </MyElem>
+            
                 <MySubHeader
-                    left = {
-                    <h2>это лево</h2>
-                    <h2> my SubHeader</h2>
+                    left = { 
+                        <MyElem> 
+                            <h2> MyElem </h2>  
+                            <h2> WORk!!!!</h2> 
+                        </MyElem>
                     }
                    right={
-                    <h2>это право!!!!</h2>
-                    <h2> ***********</h2>
+                        <MyElem> 
+                            <h2> ********** </h2>  
+                            <h2> ПРАВО!!!!</h2> 
+                        </MyElem>
                     }
                 />
                 <main>
@@ -58,6 +67,17 @@ const MySubHeader = (props) => {
         {props.left}
         {props.right}
     </div>
+    )
+}
+
+const MyElem = (props) => {
+    return (
+        <div> 
+        {React.Children.map(props.children, child => {
+            return React.cloneElement(child, {color: 'red'})
+            })
+        }
+        </div>
     )
 }
 
