@@ -102,6 +102,7 @@ class CharList extends Component {
                 onClick={()=> this.onRequest(offset)}>
                     <div className="inner">load more</div>
                 </button>
+                {this.props.children}
             </div>
         )
     }

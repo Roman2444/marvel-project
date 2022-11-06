@@ -1,4 +1,4 @@
-import { Component } from "react/cjs/react.production.min";
+import React, { Component } from 'react';
 
 import AppHeader from "../appHeader/AppHeader";
 import RandomChar from "../randomChar/RandomChar";
@@ -20,15 +20,27 @@ class App extends Component {
         })
     }
 
-    render() {
+    render() { 
         return (
             <div className="app">
                 <AppHeader/>
+                <MySubHeader
+                    left = {
+                    <h2>это лево</h2>
+                    <h2> my SubHeader</h2>
+                    }
+                   right={
+                    <h2>это право!!!!</h2>
+                    <h2> ***********</h2>
+                    }
+                />
                 <main>
                     <RandomChar/>
                     <div className="char__content">
                         <ErrorBoundary>
-                            <CharList onCharSelected={this.onCharSelected}/>
+                            <CharList onCharSelected={this.onCharSelected}>
+                                <h2>test********</h2>
+                            </CharList>
                         </ErrorBoundary>
                         <CharInfo charId={this.state.selectedChar} />
                     </div>
@@ -38,11 +50,16 @@ class App extends Component {
         )
     }
 
-
 }
 
-
-    
+const MySubHeader = (props) => {
+    return ( 
+    <div>
+        {props.left}
+        {props.right}
+    </div>
+    )
+}
 
 
 export default App;
