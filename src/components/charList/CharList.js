@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types'
 
-import Spinner from '../spinner/Spinner';
+import Spinner from '../spinner/Spinner2';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarvelService';
 import './charList.scss';
