@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types'
 
-import Spinner from '../spinner/Spinner';
+import Spin from '../spinner/Spin';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarvelService';
 import './charList.scss';
@@ -89,7 +89,7 @@ class CharList extends Component {
         const list = this.renderItems(chars);
         
         const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
+        const spinner = loading ? <Spin/> : null;
         const content = (errorMessage || spinner || list);
     
         return (

@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import MarvelService from '../../services/MarvelService';
-import Spinner from '../spinner/Spinner';
+import Spin from '../spinner/Spin';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton'
 import './charInfo.scss';
@@ -68,7 +68,7 @@ class CharInfo extends Component {
 
         const skeleton = char || loading || error ? null : <Skeleton/>
         const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
+        const spinner = loading ? <Spin/> : null;
         const content = (errorMessage || spinner || skeleton || <View char={char}/>);
 
         return (

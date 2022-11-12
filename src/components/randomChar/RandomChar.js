@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import Spinner from '../spinner/Spinner';
+import Spin from '../spinner/Spin';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarvelService';
 
@@ -54,7 +54,7 @@ class RandomChar extends Component {
         
         const {char, error, loading} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
+        const spinner = loading ? <Spin/> : null;
         const content = (errorMessage || spinner || <View char={char}/>);
 
 
