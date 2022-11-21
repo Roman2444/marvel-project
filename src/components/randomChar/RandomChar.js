@@ -14,13 +14,13 @@ const RandomChar = () => {
 
     useEffect(() => {
         updateChar();
-        const timerId = setInterval(updateChar, 60000)
+        const timerId = setInterval(updateChar, 60000);
 
         return () => {
             clearInterval(timerId)
         }
     }, [])
-    
+
     const onCharLoaded = (char) => {
         setChar(char);
     }
@@ -31,14 +31,15 @@ const RandomChar = () => {
         getCharacter(id)
             .then(onCharLoaded);
     }
-        
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spin/> : null;
-        const content = (errorMessage || spinner || <View char={char}/>);
 
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading ? <Spin/> : null;
+    const content = !(loading || error || !char) ? <View char={char} /> : null;
 
     return (
         <div className="randomchar">
+            {errorMessage}
+            {spinner}
             {content}
             <div className="randomchar__static">
                 <p className="randomchar__title">
@@ -48,8 +49,8 @@ const RandomChar = () => {
                 <p className="randomchar__title">
                     Or choose another one
                 </p>
-                <button className="button button__main">
-                    <div onClick={updateChar} className="inner">try it</div>
+                <button onClick={updateChar} className="button button__main">
+                    <div className="inner">try it</div>
                 </button>
                 <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
             </div>
@@ -62,14 +63,13 @@ const View = ({char}) => {
     const imgStyle = (thumbnail.includes('image_not_available')) ? {objectFit: "fill"} : null;
     return (
         <div className="randomchar__block">
-            <img src={thumbnail} alt="Random character" style={imgStyle} className="randomchar__img"/>
+            <img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle}/>
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
                 <p className="randomchar__descr">
                     {description}
                 </p>
                 <div className="randomchar__btns">
-                
                     <a href={homepage} className="button button__main">
                         <div className="inner">homepage</div>
                     </a>
@@ -79,7 +79,6 @@ const View = ({char}) => {
                 </div>
             </div>
         </div>
-        
     )
 }
 
