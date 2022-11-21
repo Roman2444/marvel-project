@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Spin from '../spinner/Spin';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import MarvelService from '../../services/MarvelService';
+import useMarvelService from '../../services/MarvelService';
 import './charList.scss';
 
 
@@ -17,7 +17,7 @@ const  CharList = (props) => {
     const [charEnded, setCharEnded] = useState(false);
     
 
-    const marvelService = new MarvelService();
+    const marvelService =  useMarvelService();
 
     useEffect(() => {
         onRequest();
@@ -99,7 +99,7 @@ const  CharList = (props) => {
 }
 
 CharList.propTypes = {
-    onCharSelected: PropTypes.func.isRequired
+    onCharSelected:  PropTypes.func.isRequired
 }
 
 export default CharList;

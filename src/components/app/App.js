@@ -20,13 +20,15 @@ const  App = () => {
         <div className="app">
             <AppHeader/>
             <main>
-                <RandomChar/>
-                <div className="char__content">
+                <ErrorBoundary>
+                    <RandomChar/>
+                </ErrorBoundary>
+                {/* <div className="char__content">
                     <ErrorBoundary>
                         <CharList onCharSelected={onCharSelected}/>
                     </ErrorBoundary>
                     <CharInfo charId={selectedChar} />
-                </div>
+                </div> */}
                 <img className="bg-decoration" src={decoration} alt="vision"/>
             </main>
         </div>
