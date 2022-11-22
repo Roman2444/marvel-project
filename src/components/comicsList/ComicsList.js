@@ -1,75 +1,63 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'
-
+import useMarvelService from '../../services/MarvelService';
 import Spin from '../spinner/Spin';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import useMarvelService from '../../services/MarvelService';
+
 import './comicsList.scss';
-import uw from '../../resources/img/UW.png';
-import xMen from '../../resources/img/x-men.png';
 
+const ComicsList = () => {              
 
+    const [comicsList, setComicsList] = useState([]);
+    const [newItemLoading, setnewItemLoading] = useState(false);
+    const [offset, setOffset] = useState(0);
+    const [comicsEnded, setComicsEnded] = useState(false);
 
-const ComicsList = (props) => {
+    const {loading, error, getAllComics} = useMarvelService();
 
-    const [comics, setComics] = useState([]);
-    const [newItemLoading, setNewItemLoading] = useState(false);
-
-    const {loading, error, getAllComics} =  useMarvelService();
-
-        useEffect(() => {
-        onRequest( true);
+    useEffect(() => {
+        onRequest(offset, true);
     }, [])
 
-    const onRequest = (initial) => {
-        initial ? setNewItemLoading(false) :  setNewItemLoading(true)
-        getAllComics()
-            .then((onCharListLoaded))
-           
+    const onRequest = (offset, initial) => {
+        initial ? setnewItemLoading(false) : setnewItemLoading(true);
+        getAllComics(offset)
+            .then(onComicsListLoaded)
     }
 
-    const onCharListLoaded = (newCharList) => {
+    const onComicsListLoaded = (newComicsList) => {
         let ended = false;
-        if (newCharList.length < 9) {
-            ended = true
+        if (newComicsList.length < 8) {
+            ended = true;
         }
-
-        setComics(comics => [...comics, ...newCharList]);
-        setNewItemLoading(newItemLoading => false);
-   
+        setComicsList([...comicsList, ...newComicsList]);
+        setnewItemLoading(false);
+        setOffset(offset + 8);
+        setComicsEnded(ended);
     }
 
-    const renderItems = (comics) => {
-       
-        const elements = comics.map((item) => {
-
-            const imgStyle = (item.thumbnail.includes('image_not_available')) ? {objectFit: "fill"} : null;
- 
+    function renderItems (arr) {
+        const items = arr.map((item, i) => {
             return (
                 <li 
-                tabIndex={0}
                 className="comics__item" 
-                key={item.id}
-                // onFocus={()=> { props.onCharSelected(item.id) }}
-                >
+                key={i}>
                     <a href="#">
-                        <img src={item.thumbnail} alt="thumbnail" style={{"width": "225PX"}}/>
+                        <img src={item.thumbnail} alt={item.title} className="comics__item-img"/>
                         <div className="comics__item-name">{item.title}</div>
                         <div className="comics__item-price">{item.price}</div>
                     </a>
-
                 </li>
             )
-        });
+        })
 
         return (
             <ul className="comics__grid">
-            {elements}
+                {items}
             </ul>
         )
     }
 
-    const list = renderItems(comics);
+    const items = renderItems(comicsList);
 
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading && !newItemLoading ? <Spin/> : null;
@@ -78,8 +66,12 @@ const ComicsList = (props) => {
         <div className="comics__list">
             {errorMessage}
             {spinner}
-            {list}
-            <button onClick={()=> onRequest()} className="button button__main button__long">
+            {items}
+            <button 
+                disabled={newItemLoading} 
+                style={{'display' : comicsEnded ? 'none' : 'block'}}
+                className="button button__main button__long"
+                onClick={() => onRequest(offset)}>
                 <div className="inner">load more</div>
             </button>
         </div>
