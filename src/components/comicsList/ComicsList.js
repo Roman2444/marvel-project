@@ -1,8 +1,46 @@
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types'
+
+import Spin from '../spinner/Spin';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import useMarvelService from '../../services/MarvelService';
 import './comicsList.scss';
 import uw from '../../resources/img/UW.png';
 import xMen from '../../resources/img/x-men.png';
 
-const ComicsList = () => {
+
+
+const ComicsList = (props) => {
+
+    const [comics, setComics] = useState([]);
+    const [newItemLoading, setNewItemLoading] = useState(false);
+
+    const {loading, error, getAllComics} =  useMarvelService();
+
+        useEffect(() => {
+        onRequest( true);
+    }, [])
+
+    const onRequest = (initial) => {
+        initial ? setNewItemLoading(false) :  setNewItemLoading(true)
+        getAllComics()
+            .then((data) => console.log(data))
+           
+    }
+
+    const onCharListLoaded = (newCharList) => {
+        let ended = false;
+        if (newCharList.length < 9) {
+            ended = true
+        }
+
+        setComics(comics => [...comics, ...newCharList]);
+        setNewItemLoading(newItemLoading => false);
+   
+    }
+
+
+
     return (
         <div className="comics__list">
             <ul className="comics__grid">
