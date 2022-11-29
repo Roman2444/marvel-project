@@ -1,7 +1,5 @@
 @import '../../style/variables.scss';
 
-
-
 .char {
     &__content {
         margin-top: 50px;
@@ -30,12 +28,10 @@
             object-fit: cover;
             transform: translate(-15px, -15px);
         }
-
-        &:focus {
+        &_selected {
             box-shadow: 0 5px 20px $main-color;
             transform: translateY(-8px);
         }
-
         &-enter {
             opacity: 0;
         }
@@ -57,5 +53,5 @@
         line-height: 29px;
         text-transform: uppercase;
         color: #fff;
-    }
+    } 
 }
