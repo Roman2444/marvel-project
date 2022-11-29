@@ -34,17 +34,20 @@
         }
         &-enter {
             opacity: 0;
+            transform: scale(0.3) translateX(-1000px);
+            
         }
         &-enter-active {
             opacity: 1;
-            transition: opacity 500ms ease-in;
+            transform:  rotateY(90deg) ;
+            transition: all 500ms ease-out;
         }
         &-exit {
             opacity: 1;
         }
         &-exit-active {
             opacity: 0;
-            transition: opacity 500ms ease-in;
+            transition: all 500ms ease-out;
         }
     }
     &__name {
