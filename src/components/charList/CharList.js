@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'
+import { useState, useEffect, createRef } from 'react';
+import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
 
 import Spin from '../spinner/Spin';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -47,20 +49,23 @@ const  CharList = (props) => {
             const imgStyle = (item.thumbnail.includes('image_not_available')) ? {objectFit: "fill"} : null;
  
             return (
-                <li 
-                tabIndex={0}
-                className="char__item" 
-                key={item.id}
-                onFocus={()=> { props.onCharSelected(item.id) }}>
-                    <img src={item.thumbnail} alt="thumbnail" style={imgStyle}/>
-                    <div className="char__name">{item.name}</div>
-                </li>
+                <CSSTransition key={item.id} timeout={500}  className="char__item" >
+                    <li 
+                        tabIndex={0}
+                        className="char__item" 
+                        onFocus={()=> { props.onCharSelected(item.id) }}>
+                            <img src={item.thumbnail} alt="thumbnail" style={imgStyle}/>
+                            <div className="char__name">{item.name}</div>
+                    </li>
+                </CSSTransition>
             )
         });
 
         return (
             <ul className="char__grid">
-            {elements}
+                <TransitionGroup component={null} >
+                    {elements}
+                </TransitionGroup>
             </ul>
         )
     }
