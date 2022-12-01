@@ -21,17 +21,17 @@ const MainPage = () => {
                 <RandomChar/>
             </ErrorBoundary>
             <div className="char__content">
-            
                 <ErrorBoundary>
                     <CharList onCharSelected={onCharSelected}/>
                 </ErrorBoundary>
-                <ErrorBoundary>
-                    <CharInfo charId={selectedChar}/>
-                </ErrorBoundary>
-                <ErrorBoundary>
-                    <CharSearchForm/>
-                </ErrorBoundary>
-                
+                <div>
+                    <ErrorBoundary>
+                        <CharInfo charId={selectedChar}/>
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <CharSearchForm/>
+                    </ErrorBoundary>
+                </div>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>
         
