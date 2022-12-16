@@ -22,7 +22,7 @@ const MainPage = () => {
                 <meta
                     name="description"
                     content="Marvel information portal"
-                    />
+                />
                 <title>Marvel information portal</title>
             </Helmet>
             <ErrorBoundary>
